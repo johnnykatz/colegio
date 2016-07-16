@@ -1,4 +1,4 @@
-Logiautos
+Colegio
 ===================
 
-A Symfony project created on September 29, 2015, 8:54 pm.
+A Symfony project created to manage digitalization legajos
