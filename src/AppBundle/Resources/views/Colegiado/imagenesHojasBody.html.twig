@@ -1,0 +1,36 @@
+{% block content -%}
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        {% for hoja in entity %}
+            <li data-target="#carousel-example-generic" data-slide-to="{{hoja.id}}" class="active"></li>
+            {%endfor%}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        {% set i = 0 %}
+        {% for hoja in entity %}
+            {% if i == 0 %}
+                <div class="item active">
+                {% else %}
+                    <div class="item">
+                    {%endif%}
+                    <img src="{{app.request.basePath ~ '/uploads/expedientes/' ~hoja.documento.expediente.id~'/'~hoja.documento.id~'/'~ hoja.pathImagen }}" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Hoja {{hoja.numero}}</h3>
+                        <p>Imprimir</p>
+                    </div>
+                    {% set i=i+1 %}
+                </div>
+            {%endfor%}
+
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
+    {% endblock %}

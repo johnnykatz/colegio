@@ -1,0 +1,30 @@
+circunscripcion:
+    path:     /
+    defaults: { _controller: "AppBundle:Circunscripcion:index" }
+
+circunscripcion_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Circunscripcion:show" }
+
+circunscripcion_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Circunscripcion:new" }
+
+circunscripcion_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Circunscripcion:create" }
+    methods:  POST
+
+circunscripcion_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Circunscripcion:edit" }
+
+circunscripcion_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Circunscripcion:update" }
+    methods:  [POST, PUT]
+
+circunscripcion_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Circunscripcion:delete" }
+    methods:  [POST, DELETE]

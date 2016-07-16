@@ -1,0 +1,196 @@
+{% extends 'ThemeBundle:Default:layout_base.html.twig' %}
+
+{% block content_title %}
+    Formulario de Edicion
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+        {#$('#appbundle_colegiado_submit').click(function () {
+            var frm = document.getElementsByClassName("tipoDomicilio");
+            for (i = 0; i < frm.elements.length; i++)
+            {
+                frm.elements[i].value
+            }
+        });#}
+
+            });
+
+    </script>
+{% endblock javascripts %}      
+
+{% block content -%}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Colegiado</h3>
+                </div>
+
+
+                {{ form_start(edit_form) }}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Datos generales</h3>
+                    </div>
+                    <div class="box-body">
+                        {#                        <div class="form-row">#}
+                        <div class="col-md-12">
+                            <img class="img-responsive" width="200" height="200"
+                                 src="{{ app.request.basePath ~ '/uploads/fotos_colegiados/' ~'/'~ entity.id ~'/'~entity.pathImagen |default("")}}">
+                            {{ form_row(edit_form.foto) }}
+
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.situacion) }}
+                        </div>
+                        {#</div>#}
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.matricula) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.apellido) }}</div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.nombre) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.fechaMatricula) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.folio) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.libro) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.legajo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.circunscripcion) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.sexo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.tipoDocumento) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.numeroDocumento) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.cuilCuit) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Nacimiento</h3>
+                    </div>
+                    <div class="box-body">             
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.fechaNacimiento) }}
+                        </div> 
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.localidad) }}
+                        </div> 
+                    </div> 
+
+                </div>
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Domicilios</h3>
+                    </div>
+                    <div class="box-body">       
+                        {{ form_widget(edit_form.domicilios) }}
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Contactos</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.telefono1) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.telefono2) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.telefono3) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.mail) }}
+                        </div>
+                    </div>
+                </div>    
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">MatriculaFederal</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.matriculaFederal) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.fechaFederal) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.libroFederal) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.folioFederal) }}
+                        </div>
+                    </div>
+                </div>        
+
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Otros</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.fechaInactividad) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.cargo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.fechaCargo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.fechaTitulo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.facultad) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.observacion) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(edit_form.denuncias) }}
+                        </div>
+                    </div>
+                </div>         
+                {{ form_widget(edit_form._token) }}
+                {{ form_widget(edit_form.submit) }}
+
+
+
+                {#                {{ form(edit_form) }}#}
+
+
+                <div class="box-footer">
+                    <a class="btn btn-default" href="{{ path('colegiado') }}">
+                        Volver
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {#    {{ form(delete_form) }}#}
+
+{% endblock %}

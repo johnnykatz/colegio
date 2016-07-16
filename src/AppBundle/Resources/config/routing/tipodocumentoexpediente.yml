@@ -1,0 +1,30 @@
+tipo_documento_expediente:
+    path:     /
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:index" }
+
+tipo_documento_expediente_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:show" }
+
+tipo_documento_expediente_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:new" }
+
+tipo_documento_expediente_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:create" }
+    methods:  POST
+
+tipo_documento_expediente_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:edit" }
+
+tipo_documento_expediente_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:update" }
+    methods:  [POST, PUT]
+
+tipo_documento_expediente_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:TipoDocumentoExpediente:delete" }
+    methods:  [POST, DELETE]

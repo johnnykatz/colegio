@@ -1,0 +1,30 @@
+tipodocumento:
+    path:     /
+    defaults: { _controller: "AppBundle:TipoDocumento:index" }
+
+tipodocumento_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:TipoDocumento:show" }
+
+tipodocumento_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:TipoDocumento:new" }
+
+tipodocumento_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:TipoDocumento:create" }
+    methods:  POST
+
+tipodocumento_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:TipoDocumento:edit" }
+
+tipodocumento_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:TipoDocumento:update" }
+    methods:  [POST, PUT]
+
+tipodocumento_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:TipoDocumento:delete" }
+    methods:  [POST, DELETE]

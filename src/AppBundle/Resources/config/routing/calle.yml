@@ -1,0 +1,30 @@
+calle:
+    path:     /
+    defaults: { _controller: "AppBundle:Calle:index" }
+
+calle_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Calle:show" }
+
+calle_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Calle:new" }
+
+calle_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Calle:create" }
+    methods:  POST
+
+calle_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Calle:edit" }
+
+calle_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Calle:update" }
+    methods:  [POST, PUT]
+
+calle_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Calle:delete" }
+    methods:  [POST, DELETE]

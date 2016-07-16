@@ -1,0 +1,174 @@
+{% extends 'ThemeBundle:Default:layout_base.html.twig' %}
+
+{% block content_title %}
+    Formulario de Alta
+{% endblock %}
+
+{% block content -%}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Colegiado</h3>
+                </div>
+
+                {{ form_start(form) }}
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Datos generales</h3>
+                    </div>
+                    <div class="box-body">
+                        {#                        <div class="form-row">#}
+                        <div class="col-md-12">
+
+                            {{ form_row(form.foto) }}
+
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.situacion) }}
+                        </div>
+                        {#</div>#}
+                        <div class="col-md-4">
+                            {{ form_row(form.matricula) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.apellido) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.nombre) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.fechaMatricula) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.folio) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.libro) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.legajo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.circunscripcion) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.sexo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.tipoDocumento) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.numeroDocumento) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.cuilCuit) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Nacimiento</h3>
+                    </div>
+                    <div class="box-body">             
+                        <div class="col-md-4">
+                            {{ form_row(form.fechaNacimiento) }}
+                        </div> 
+                        <div class="col-md-4">
+                            {{ form_row(form.localidad) }}
+                        </div> 
+                    </div> 
+
+                </div>
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Domicilios</h3>
+                    </div>
+                    <div class="box-body">       
+                        {{ form_widget(form.domicilios) }}
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Contactos</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            {{ form_row(form.telefono1) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.telefono2) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.telefono3) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.mail) }}
+                        </div>
+                    </div>
+                </div>    
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">MatriculaFederal</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            {{ form_row(form.matriculaFederal) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.fechaFederal) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.libroFederal) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.folioFederal) }}
+                        </div>
+                    </div>
+                </div>        
+
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Otros</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            {{ form_row(form.fechaInactividad) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.cargo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.fechaCargo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.fechaTitulo) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.facultad) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.observacion) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.denuncias) }}
+                        </div>
+                    </div>
+                </div>         
+                {{ form_widget(form._token) }}
+                {{ form_widget(form.submit) }}
+
+
+
+                <div class="box-footer">
+                    <a class="btn btn-default" href="{{ path('colegiado') }}">
+                        Volver
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+colegiado:
+    path:     /
+    defaults: { _controller: "AppBundle:Colegiado:index" }
+
+colegiado_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Colegiado:show" }
+
+colegiado_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Colegiado:new" }
+
+colegiado_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Colegiado:create" }
+    methods:  POST
+
+colegiado_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Colegiado:edit" }
+
+colegiado_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Colegiado:update" }
+    methods:  [POST, PUT]
+
+colegiado_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Colegiado:delete" }
+#    methods:  [POST, DELETE]
+
+actualizar_expediente:
+    path:     /{colegiadoId}/actualizar_expediente
+    defaults: { _controller: "AppBundle:Colegiado:actualizarExpediente" }

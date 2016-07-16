@@ -1,0 +1,30 @@
+pais:
+    path:     /
+    defaults: { _controller: "UbicacionBundle:Pais:index" }
+
+pais_show:
+    path:     /{id}/show
+    defaults: { _controller: "UbicacionBundle:Pais:show" }
+
+pais_new:
+    path:     /new
+    defaults: { _controller: "UbicacionBundle:Pais:new" }
+
+pais_create:
+    path:     /create
+    defaults: { _controller: "UbicacionBundle:Pais:create" }
+    methods: POST
+
+pais_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UbicacionBundle:Pais:edit" }
+
+pais_update:
+    path:     /{id}/update
+    defaults: { _controller: "UbicacionBundle:Pais:update" }
+    methods: [POST, PUT]
+
+pais_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UbicacionBundle:Pais:delete" }
+    methods: [POST, DELETE]

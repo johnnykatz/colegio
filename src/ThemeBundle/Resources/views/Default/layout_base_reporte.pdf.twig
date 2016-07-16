@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ title }}</title>
+        <link href="{{ asset('bundles/theme/images/favicon.ico',null, true) }}" rel="shortcut icon">
+        <style>
+            @font-face {
+                font-family: SourceSansPro;
+                src: url({{ asset('bundles/theme/css/font/Source_Sans_Pro/SourceSansPro-Regular.ttf',null, true) }});
+            }
+            body {
+                font-family: SourceSansPro;
+                font-size: 14pt;
+            }
+            table {
+                border-collapse: collapse;
+            }
+
+            table, th {
+                border: 2px solid black;
+            }
+
+            table, td {
+                border: 1px solid black;
+            }
+
+            .titulo-reporte {
+                text-align: center;
+            }
+
+
+        </style>
+        {% block stylesheets %}
+        {% endblock stylesheets %}
+    </head>
+    <body>
+        <h2 class="titulo-reporte">{{ title }}</h2>
+        {% block body %}
+        {% endblock %}
+
+
+    </div>
+</body>
+</html>

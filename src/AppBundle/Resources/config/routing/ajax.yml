@@ -1,0 +1,11 @@
+get_imagenes_hojas_ajax:
+    path:     /get_imagenes_hojas_ajax/documentoId
+    defaults: { _controller: "AppBundle:AjaxColegiado:getImagenesHojas" }
+
+get_calle_by_nombre_codigo:
+    path:     /get_calle_by_nombre_codigo
+    defaults: { _controller: "AppBundle:AjaxColegiado:getCalleByNombreCodigo" }
+    
+get_localidad_by_nombre:
+    path:     /get_localidad_by_nombre
+    defaults: { _controller: "AppBundle:AjaxColegiado:getLocalidadByNombre" }

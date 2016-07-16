@@ -1,0 +1,30 @@
+expediente:
+    path:     /
+    defaults: { _controller: "AppBundle:Expediente:index" }
+
+expediente_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Expediente:show" }
+
+expediente_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Expediente:new" }
+
+expediente_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Expediente:create" }
+    methods:  POST
+
+expediente_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Expediente:edit" }
+
+expediente_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Expediente:update" }
+    methods:  [POST, PUT]
+
+expediente_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Expediente:delete" }
+    methods:  [POST, DELETE]
