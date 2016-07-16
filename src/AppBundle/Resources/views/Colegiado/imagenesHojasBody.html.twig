@@ -12,14 +12,19 @@
         {% for hoja in entity %}
             {% if i == 0 %}
                 <div class="item active">
+
                 {% else %}
                     <div class="item">
                     {%endif%}
-                    <img src="{{app.request.basePath ~ '/uploads/expedientes/' ~hoja.documento.expediente.id~'/'~hoja.documento.id~'/'~ hoja.pathImagen }}" alt="...">
                     <div class="carousel-caption">
-                        <h3>Hoja {{hoja.numero}}</h3>
-                        <p>Imprimir</p>
+                        <span class="badge bg-red">{{hoja.numero}}</span>
+{#                        <h4>Hoja </h4>#}
+                        <a class="btn-sm btn-primary" href="{{app.request.basePath ~ '/uploads/expedientes/' ~hoja.documento.expediente.id~'/'~hoja.documento.id~'/'~ hoja.pathImagen }}" target="_blank">
+                            <span class="fa fa-search-plus"> </span></a></p>
+
                     </div>
+                    <img src="{{app.request.basePath ~ '/uploads/expedientes/' ~hoja.documento.expediente.id~'/'~hoja.documento.id~'/'~ hoja.pathImagen }}" alt="...">
+
                     {% set i=i+1 %}
                 </div>
             {%endfor%}

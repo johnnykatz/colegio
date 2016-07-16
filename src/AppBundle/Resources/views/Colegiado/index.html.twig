@@ -28,9 +28,9 @@
                                 <th>Folio</th>
                                 <th>Libro</th>#}
                                 <th>Legajo</th>
-                                <th>Numerodocumento</th>
+                                <th>Numero documento</th>
                                 <th>Cuilcuit</th>
-                                <th>Fechanacimiento</th>
+                                <th>Fecha nacimiento</th>
                                {# <th>Matriculafederal</th>
                                 <th>Fechafederal</th>
                                 <th>Librofederal</th>
@@ -41,7 +41,7 @@
                                 <th>Fechatitulo</th>
                                 <th>Observacion</th>
                                 <th>Denuncias</th>#}
-                                <th>Telefono1</th>
+                                <th>Telefono 1</th>
                                {# <th>Telefono2</th>
                                 <th>Telefono3</th>#}
                                 <th>Mail</th>
@@ -63,7 +63,7 @@
                                     <td>{{ entity.legajo }}</td>
                                     <td>{{ entity.numeroDocumento }}</td>
                                     <td>{{ entity.cuilCuit }}</td>
-                                    <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d-m-Y') }}{% endif %}</td>
                                    {# <td>{{ entity.matriculaFederal }}</td>
                                     <td>{% if entity.fechaFederal %}{{ entity.fechaFederal|date('Y-m-d H:i:s') }}{% endif %}</td>
                                     <td>{{ entity.libroFederal }}</td>

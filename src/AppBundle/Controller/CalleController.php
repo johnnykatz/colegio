@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Calle;
 use AppBundle\Form\CalleType;
 
@@ -12,7 +12,7 @@ use AppBundle\Form\CalleType;
  * Calle controller.
  *
  */
-class CalleController extends Controller
+class CalleController extends Controller implements TokenAuthenticatedController
 {
 
     /**

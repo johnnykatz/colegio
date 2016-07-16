@@ -41,7 +41,7 @@ class Expediente
     /**
      * @var text
      *
-     * @ORM\Column(name="observacion", type="text")
+     * @ORM\Column(name="observacion", type="text",nullable=true)
      */
     private $observacion;
     

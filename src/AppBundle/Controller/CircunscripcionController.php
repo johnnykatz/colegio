@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Circunscripcion;
 use AppBundle\Form\CircunscripcionType;
 
@@ -12,7 +12,7 @@ use AppBundle\Form\CircunscripcionType;
  * Circunscripcion controller.
  *
  */
-class CircunscripcionController extends Controller
+class CircunscripcionController extends Controller implements TokenAuthenticatedController
 {
 
     /**

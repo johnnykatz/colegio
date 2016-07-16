@@ -14,7 +14,9 @@ class ExpedienteType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('matricula')
+                ->add('matricula','text',array(
+                    'attr' => array('readonly' => 'readonly')
+                ))
                 ->add('fechaCreacion', 'date', array(
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',

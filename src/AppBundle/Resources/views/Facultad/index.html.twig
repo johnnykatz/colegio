@@ -23,8 +23,6 @@
                                     <th>Id</th>
                                     <th>Codigo</th>
                                     <th>Nombre</th>
-                                    <th>Creado</th>
-                                    <th>Actualizado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -36,9 +34,7 @@
                                         </td>
                                         <td>{{ entity.codigo }}</td>
                                         <td>{{ entity.nombre }}</td>
-                                        <td>{% if entity.creado %}{{ entity.creado|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                        <td>{% if entity.actualizado %}{{ entity.actualizado|date('Y-m-d H:i:s') }}{% endif %}</td>
-                                        <td>
+                                         <td>
 
                         <a class="btn btn-default" href="{{ path('facultad_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i></a>
 

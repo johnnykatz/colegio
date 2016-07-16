@@ -9,7 +9,7 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content" id="cuerpoCarousel">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="100000">
                     <ol class="carousel-indicators">
                         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                     </ol>
@@ -20,339 +20,339 @@
                                 <img src="" alt="...">
 
                             </div>
-                    </div>
-                </div>
-            </div> <!-- Carousel -->
-
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Datos generales</h3>
-            </div>
-
-            <div class="box-body">
-                <table class="record_properties">
-                    <tbody>
-                        <tr>
-                            <th>Id </th>
-                            <td>{{ entity.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Matricula </th>
-                            <td>{{ entity.matricula }}</td>
-                        </tr>
-
-
-                        <tr>
-                            <th>Apellido </th>
-                            <td>{{ entity.apellido }}</td>
-                        </tr>
-                        <tr>
-                            <th>Nombre </th>
-                            <td>{{ entity.nombre }}</td>
-                        </tr>
-                        <tr>
-                            <th>Fecha matricula </th>
-                            <td>{{ entity.fechaMatricula|date('d-m-Y') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Folio </th>
-                            <td>{{ entity.folio }}</td>
-                        </tr>
-
-
-                        <tr>
-                            <th>Libro </th>
-                            <td>{{ entity.libro }}</td>
-                        </tr>
-                        <tr>
-                            <th>Legajo </th>
-                            <td>{{ entity.legajo }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Circunscripcion </th>
-                            <td>{{ entity.circunscripcion }}</td>
-                        </tr>
-                        <tr>
-                            <th>Sexo </th>
-                            <td>{{ entity.sexo.nombre }}</td>
-                        </tr>
-                        <tr>
-                            <th>Tipo documento </th>
-                            <td>{{ entity.tipoDocumento }}</td>
-                        </tr>
-                        <tr>
-                            <th>Numero documento </th>
-                            <td>{{ entity.numeroDocumento }}</td>
-                        </tr>
-                        <tr>
-                            <th>Cuil Cuit </th>
-                            <td>{{ entity.cuilCuit }}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
-
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Nacimiento</h3>
-            </div>
-            <div class="box-body">
-                <table class="record_properties">
-                    <tbody>
-                        <tr>
-                            <th>Fecha nacimiento </th>
-                            <td>{{ entity.fechaNacimiento|date('d-m-Y') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Localidad </th>
-                            <td>{{ entity.localidad }}</td>
-                        </tr>
-                        <tr>
-                            <th>Provincia</th>
-                            <td>{{ entity.localidad.departamento.provincia |default('')}}</td>
-                        </tr>
-                        <tr>
-                            <th>Pais </th>
-                            <td>{{ entity.localidad.departamento.provincia.pais |default('')}}</td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Contactos</h3>
-            </div>
-            <div class="box-body">
-                <table class="record_properties">
-                    <tbody>
-
-                        <tr>
-                            <th>Telefono1 </th>
-                            <td>{{ entity.telefono1 }}</td>
-                        </tr>
-                        <tr>
-                            <th>Telefono2 </th>
-                            <td>{{ entity.telefono2 }}</td>
-                        </tr>
-                        <tr>
-                            <th>Telefono3 </th>
-                            <td>{{ entity.telefono3 }}</td>
-                        </tr>
-                        <tr>
-                            <th>Mail </th>
-                            <td>{{ entity.mail }}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Domicilios</h3>
-            </div>
-            <div class="box-body">
-                {%for domicilio in entity.domicilios%}
-                    <div class="col-md-6">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Domicilio {{domicilio.tipoDomicilio}}</h3>
-                            </div>
-                            <div class="box-body">
-                                <table class="record_properties">
-                                    <tbody>
-
-                                        <tr>
-                                            <th>Calle </th>
-                                            <td>{{ domicilio.calle }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Numeracion </th>
-                                            <td>{{ domicilio.numeracion }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Piso </th>
-                                            <td>{{ domicilio.piso }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Departamento </th>
-                                            <td>{{ domicilio.departamentoC }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Localidad </th>
-                                            <td>{{ domicilio.localidad }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Provincia </th>
-                                            <td>{{ domicilio.localidad.departamento.provincia }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Fecha </th>
-                                            <td>{{ domicilio.fecha |date('d-m-Y')}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
-                {%endfor%}
+                </div> <!-- Carousel -->
+
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Datos generales</h3>
+                </div>
 
-    <div class="col-md-6">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Matricula Federal</h3>
-            </div>
-            <div class="box-body">
-                <table class="record_properties">
-                    <tbody>
-                        <tr>
-                            <th>Matricula federal </th>
-                            <td>{{ entity.matriculaFederal }}</td>
-                        </tr>
-                        <tr>
-                            <th>Fecha </th>
-                            <td>{{ entity.fechaFederal|date('Y-m-d H:i:s') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Libro </th>
-                            <td>{{ entity.libroFederal }}</td>
-                        </tr>
-                        <tr>
-                            <th>Folio </th>
-                            <td>{{ entity.folioFederal }}</td>
-                        </tr>
+                <div class="box-body">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>Id </th>
+                                <td>{{ entity.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Matricula </th>
+                                <td>{{ entity.matricula }}</td>
+                            </tr>
 
 
-                    </tbody>
-                </table>
+                            <tr>
+                                <th>Apellido </th>
+                                <td>{{ entity.apellido }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre </th>
+                                <td>{{ entity.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha matricula </th>
+                                <td>{{ entity.fechaMatricula|date('d-m-Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Folio </th>
+                                <td>{{ entity.folio }}</td>
+                            </tr>
+
+
+                            <tr>
+                                <th>Libro </th>
+                                <td>{{ entity.libro }}</td>
+                            </tr>
+                            <tr>
+                                <th>Legajo </th>
+                                <td>{{ entity.legajo }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Circunscripcion </th>
+                                <td>{{ entity.circunscripcion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sexo </th>
+                                <td>{{ entity.sexo.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo documento </th>
+                                <td>{{ entity.tipoDocumento }}</td>
+                            </tr>
+                            <tr>
+                                <th>Numero documento </th>
+                                <td>{{ entity.numeroDocumento }}</td>
+                            </tr>
+                            <tr>
+                                <th>Cuil Cuit </th>
+                                <td>{{ entity.cuilCuit }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Otros datos</h3>
-            </div>
-            <div class="box-body">
-                <table class="record_properties">
-                    <tbody>
-                        <tr>
-                            <th>Fecha inactividad </th>
-                            <td>{{ entity.fechaInactividad|date('Y-m-d H:i:s') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Cargo </th>
-                            <td>{{ entity.cargo }}</td>
-                        </tr>
-                        <tr>
-                            <th>Fecha cargo </th>
-                            <td>{{ entity.fechaCargo|date('Y-m-d H:i:s') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Fecha titulo </th>
-                            <td>{{ entity.fechaTitulo|date('Y-m-d H:i:s') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Facultad </th>
-                            <td>{{ entity.facultad }}</td>
-                        </tr>
-                        <tr>
-                            <th>Observacion </th>
-                            <td>{{ entity.observacion }}</td>
-                        </tr>
-                        <tr>
-                            <th>Denuncias </th>
-                            <td>{{ entity.denuncias }}</td>
-                        </tr>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nacimiento</h3>
+                </div>
+                <div class="box-body">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>Fecha nacimiento </th>
+                                <td>{{ entity.fechaNacimiento|date('d-m-Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Localidad </th>
+                                <td>{{ entity.localidad }}</td>
+                            </tr>
+                            <tr>
+                                <th>Provincia</th>
+                                <td>{{ entity.localidad.departamento.provincia |default('')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Pais </th>
+                                <td>{{ entity.localidad.departamento.provincia.pais |default('')}}</td>
+                            </tr>
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Documentos</h3>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Contactos</h3>
+                </div>
+                <div class="box-body">
+                    <table class="record_properties">
+                        <tbody>
+
+                            <tr>
+                                <th>Telefono1 </th>
+                                <td>{{ entity.telefono1 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telefono2 </th>
+                                <td>{{ entity.telefono2 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telefono3 </th>
+                                <td>{{ entity.telefono3 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mail </th>
+                                <td>{{ entity.mail }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="box-body">
-                {%if entity.expedientes.count>0 and entity.expedientes.first.documentos.count>0%}
-                    {% for documento in entity.expedientes.first.documentos %}
+        </div>
+
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Domicilios</h3>
+                </div>
+                <div class="box-body">
+                    {%for domicilio in entity.domicilios%}
                         <div class="col-md-6">
-                            <div class="box box-danger">
+                            <div class="box">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">{{ documento.tipoDocumentoExpediente }}</h3>
+                                    <h3 class="box-title">Domicilio {{domicilio.tipoDomicilio}}</h3>
                                 </div>
                                 <div class="box-body">
                                     <table class="record_properties">
                                         <tbody>
+
                                             <tr>
-                                                <th>Fecha de ingreso </th>
-                                                <td>{{ documento.fechaIngreso|date("d-m-Y") }}</td>
+                                                <th>Calle </th>
+                                                <td>{{ domicilio.calle }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Descripcion </th>
-                                                <td>{{ documento.descripcion }}</td>
-                                            </tr>                                      
-                                            {#                                        {% if danio.fotoDanio %}#}
-                                            <tr>
-                                                <th><a class="pull-right badge bg-blue btn-carousel no-print" data-toggle="modal"
-                                                       data-target="#modalCarousel"
-                                                       data-url="{{ path('get_imagenes_hojas_ajax', { 'documentoId': documento.id }) }}"
-                                                       title="Ver hojas">Ver hojas</a>
-                                                </th>
+                                                <th>Numeracion </th>
+                                                <td>{{ domicilio.numeracion }}</td>
                                             </tr>
-                                            {#                                        {% endif %}#}
+                                            <tr>
+                                                <th>Piso </th>
+                                                <td>{{ domicilio.piso }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Departamento </th>
+                                                <td>{{ domicilio.departamentoC }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Localidad </th>
+                                                <td>{{ domicilio.localidad }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Provincia </th>
+                                                <td>{{ domicilio.localidad.departamento.provincia }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fecha </th>
+                                                <td>{{ domicilio.fecha |date('d-m-Y')}}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-
-                    {% endfor %}
-                {% endif %}
+                    {%endfor%}
+                </div>
             </div>
+        </div>
 
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Matricula Federal</h3>
+                </div>
+                <div class="box-body">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>Matricula federal </th>
+                                <td>{{ entity.matriculaFederal }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha </th>
+                                <td>{{ entity.fechaFederal|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Libro </th>
+                                <td>{{ entity.libroFederal }}</td>
+                            </tr>
+                            <tr>
+                                <th>Folio </th>
+                                <td>{{ entity.folioFederal }}</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Otros datos</h3>
+                </div>
+                <div class="box-body">
+                    <table class="record_properties">
+                        <tbody>
+                            <tr>
+                                <th>Fecha inactividad </th>
+                                <td>{{ entity.fechaInactividad|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Cargo </th>
+                                <td>{{ entity.cargo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha cargo </th>
+                                <td>{{ entity.fechaCargo|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha titulo </th>
+                                <td>{{ entity.fechaTitulo|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Facultad </th>
+                                <td>{{ entity.facultad }}</td>
+                            </tr>
+                            <tr>
+                                <th>Observacion </th>
+                                <td>{{ entity.observacion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Denuncias </th>
+                                <td>{{ entity.denuncias }}</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Documentos</h3>
+                </div>
+                <div class="box-body">
+                    {%if entity.expedientes.count>0 and entity.expedientes.first.documentos.count>0%}
+                        {% for documento in entity.expedientes.first.documentos %}
+                            <div class="col-md-6">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">{{ documento.tipoDocumentoExpediente }}</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="record_properties">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Fecha de ingreso </th>
+                                                    <td>{{ documento.fechaIngreso|date("d-m-Y") }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Descripcion </th>
+                                                    <td>{{ documento.descripcion }}</td>
+                                                </tr>                                      
+                                                {#                                        {% if danio.fotoDanio %}#}
+                                                <tr>
+                                                    <th><a class="pull-right badge bg-blue btn-carousel no-print" data-toggle="modal"
+                                                           data-target="#modalCarousel"
+                                                           data-url="{{ path('get_imagenes_hojas_ajax', { 'documentoId': documento.id }) }}"
+                                                           title="Ver hojas">Ver hojas</a>
+                                                    </th>
+                                                </tr>
+                                                {#                                        {% endif %}#}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 
-<div class="box-footer">
-    <a class="btn btn-default" href="{{ path('colegiado') }}">
-        Volver
-    </a>
+    <div class="box-footer">
+        <a class="btn btn-default" href="{{ path('colegiado') }}">
+            Volver
+        </a>
 
 
-    <a class="btn btn-primary" href="{{ path('colegiado_edit', { 'id': entity.id }) }}">
-        Editar
-    </a>
+        <a class="btn btn-primary" href="{{ path('colegiado_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
 
-</div>
-{#    {{ form(delete_form) }}#}
-
+    </div>
+    {#    {{ form(delete_form) }}#}
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script>
@@ -381,4 +381,4 @@
 
     </script>
 {% endblock javascripts %}
-{% endblock %}
+

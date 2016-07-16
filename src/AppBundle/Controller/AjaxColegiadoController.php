@@ -19,7 +19,7 @@ class AjaxColegiadoController extends Controller {
         } else {
 
             $em = $this->getDoctrine()->getManager();
-            $entities = $em->getRepository('AppBundle:Hoja')->findByDocumento($documentoId);
+            $entities = $em->getRepository('AppBundle:Hoja')->findBy(array('documento'=>$documentoId),array('numero'=>'ASC'));
             $html = $this->renderView(
                     'AppBundle:Colegiado:imagenesHojasBody.html.twig', array(
                 'entity' => $entities,

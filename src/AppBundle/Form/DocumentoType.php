@@ -23,7 +23,10 @@ class DocumentoType extends AbstractType {
                     ),
                 ))
 //                ->add('expediente')
-                ->add('tipoDocumentoExpediente')
+                ->add('tipoDocumentoExpediente','entity',array(
+                    'class'=>'AppBundle:TipoDocumentoExpediente',
+                    'required'=>true
+                ))
                 ->add('hojas', 'collection', array(
                     'type' => new HojaType(),
                     'allow_add' => true,

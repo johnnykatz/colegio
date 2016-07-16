@@ -35,7 +35,7 @@ class Hoja {
     /**
      * @var string
      *
-     * @ORM\Column(name="path_imagen", type="string", length=255)
+     * @ORM\Column(name="path_imagen", type="string", length=255,nullable=true)
      */
     private $pathImagen;
 
@@ -102,107 +102,108 @@ class Hoja {
         // when displaying uploaded doc/image in the view.
         return 'uploads/expedientes/';
     }
-    
+
+    private $string;
+
+    public function __construct() {
+        $this->string = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+    }
+
     /**
-	 * @Assert\File(maxSize="6000000")
-	 */
-	private $foto;
+     * @Assert\File(maxSize="6000000")
+     */
+    private $foto;
 
-	/**
-	 * Sets foto.
-	 *
-	 * @param UploadedFile $foto
-	 */
-	public function setFoto(UploadedFile $foto = null)
-	{
-		$this->foto = $foto;
-		// check if we have an old image path
-		if (is_file($this->getAbsolutePath())) {
-			// store the old name to delete after the update
-			$this->temp = $this->getAbsolutePath();
-			$this->pathImagen = null;
-		} else {
-			$this->pathImagen = 'initial';
-		}
-	}
+    /**
+     * Sets foto.
+     *
+     * @param UploadedFile $foto
+     */
+    public function setFoto(UploadedFile $foto = null) {
+        $this->foto = $foto;
+        // check if we have an old image path
+        if (is_file($this->getAbsolutePath())) {
+            // store the old name to delete after the update
+            $this->temp = $this->getAbsolutePath();
+            $this->pathImagen = null;
+        } else {
+            $this->pathImagen = 'initial';
+        }
+    }
 
-	/**
-	 * Get foto.
-	 *
-	 * @return UploadedFile
-	 */
-	public function getFoto()
-	{
-		return $this->foto;
-	}
+    /**
+     * Get foto.
+     *
+     * @return UploadedFile
+     */
+    public function getFoto() {
+        return $this->foto;
+    }
 
-	/**
-	 * @ORM\PrePersist()
-	 * @ORM\PreUpdate()
-	 */
-	public function preUpload()
-	{
-		if (null !== $this->getFoto()) {
-			$this->pathImagen = $this->getFoto()->getClientOriginalName();
-		}
-	}
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload() {
+        if (null !== $this->getFoto()) {
+            $this->pathImagen = $this->string.".".  $this->obtenerExtension($this->getFoto()->getClientOriginalName());
+        }
+    }
 
-	/**
-	 * Called after entity persistence
-	 *
-	 * @ORM\PostPersist()
-	 * @ORM\PostUpdate()
-	 */
-	public function upload()
-	{
-		// the file property can be empty if the field is not required
-		if (null === $this->getFoto()) {
-			return;
-		}
+    /**
+     * Called after entity persistence
+     *
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload() {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFoto()) {
+            return;
+        }
 
-		// check if we have an old image
-		if (isset($this->temp)) {
-			// delete the old image
-			unlink($this->temp);
-			// clear the temp image path
-			$this->temp = null;
-		}
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            unlink($this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
 
 
-		// use the original file name here but you should
-		// sanitize it at least to avoid any security issues
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFoto()->move(
+                $this->getUploadRootDir() . $this->documento->getExpediente()->getId() . '/' . $this->documento->getId() . '/', $this->string.".".  $this->obtenerExtension($this->getFoto()->getClientOriginalName())
+        );
+        $this->setPathImagen($this->string.".".  $this->obtenerExtension($this->getFoto()->getClientOriginalName()));
 
-		// move takes the target directory and then the
-		// target filename to move to
-		$this->getFoto()->move(
-			$this->getUploadRootDir(). $this->documento->getExpediente()->getId() . '/' . $this->documento->getId() . '/',
-			$this->getFoto()->getClientOriginalName()
-		);
-		$this->setPathImagen($this->getFoto()->getClientOriginalName());
+        // clean up the file property as you won't need it anymore
+        $this->setFoto(null);
+    }
 
-		// clean up the file property as you won't need it anymore
-		$this->setFoto(null);
-	}
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove() {
+        $this->temp = $this->getAbsolutePath();
+    }
 
-	/**
-	 * @ORM\PreRemove()
-	 */
-	public function storeFilenameForRemove()
-	{
-		$this->temp = $this->getAbsolutePath();
-	}
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload() {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
 
-	/**
-	 * @ORM\PostRemove()
-	 */
-	public function removeUpload()
-	{
-		if (isset($this->temp)) {
-			unlink($this->temp);
-		}
-	}
-
-    
+    private function obtenerExtension($string) {
+        $stringArray = explode(".", $string);
+        return $stringArray[count($stringArray) - 1];
+    }
 
     /**
      * Get id
@@ -279,7 +280,6 @@ class Hoja {
         return $this->documento;
     }
 
-
     /**
      * Set creado
      *
@@ -287,8 +287,7 @@ class Hoja {
      *
      * @return Hoja
      */
-    public function setCreado($creado)
-    {
+    public function setCreado($creado) {
         $this->creado = $creado;
 
         return $this;
@@ -299,8 +298,7 @@ class Hoja {
      *
      * @return \DateTime
      */
-    public function getCreado()
-    {
+    public function getCreado() {
         return $this->creado;
     }
 
@@ -311,8 +309,7 @@ class Hoja {
      *
      * @return Hoja
      */
-    public function setActualizado($actualizado)
-    {
+    public function setActualizado($actualizado) {
         $this->actualizado = $actualizado;
 
         return $this;
@@ -323,8 +320,7 @@ class Hoja {
      *
      * @return \DateTime
      */
-    public function getActualizado()
-    {
+    public function getActualizado() {
         return $this->actualizado;
     }
 
@@ -335,8 +331,7 @@ class Hoja {
      *
      * @return Hoja
      */
-    public function setCreadoPor(\UsuariosBundle\Entity\Usuario $creadoPor = null)
-    {
+    public function setCreadoPor(\UsuariosBundle\Entity\Usuario $creadoPor = null) {
         $this->creadoPor = $creadoPor;
 
         return $this;
@@ -347,8 +342,7 @@ class Hoja {
      *
      * @return \UsuariosBundle\Entity\Usuario
      */
-    public function getCreadoPor()
-    {
+    public function getCreadoPor() {
         return $this->creadoPor;
     }
 
@@ -359,8 +353,7 @@ class Hoja {
      *
      * @return Hoja
      */
-    public function setActualizadoPor(\UsuariosBundle\Entity\Usuario $actualizadoPor = null)
-    {
+    public function setActualizadoPor(\UsuariosBundle\Entity\Usuario $actualizadoPor = null) {
         $this->actualizadoPor = $actualizadoPor;
 
         return $this;
@@ -371,8 +364,8 @@ class Hoja {
      *
      * @return \UsuariosBundle\Entity\Usuario
      */
-    public function getActualizadoPor()
-    {
+    public function getActualizadoPor() {
         return $this->actualizadoPor;
     }
+
 }

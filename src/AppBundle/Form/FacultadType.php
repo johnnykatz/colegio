@@ -17,10 +17,6 @@ class FacultadType extends AbstractType
         $builder
             ->add('codigo')
             ->add('nombre')
-            ->add('creado')
-            ->add('actualizado')
-            ->add('creadoPor')
-            ->add('actualizadoPor')
         ;
     }
     

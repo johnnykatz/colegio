@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Facultad;
 use AppBundle\Form\FacultadType;
 
@@ -12,7 +12,7 @@ use AppBundle\Form\FacultadType;
  * Facultad controller.
  *
  */
-class FacultadController extends Controller
+class FacultadController extends Controller implements TokenAuthenticatedController
 {
 
     /**

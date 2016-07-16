@@ -9,12 +9,12 @@ use AppBundle\Entity\Colegiado;
 use AppBundle\Entity\Expediente;
 use AppBundle\Form\ColegiadoType;
 use AppBundle\Form\ExpedienteType;
-
+use UsuariosBundle\Controller\TokenAuthenticatedController;
 /**
  * Colegiado controller.
  *
  */
-class ColegiadoController extends Controller {
+class ColegiadoController extends Controller implements TokenAuthenticatedController{
 
     /**
      * Lists all Colegiado entities.
@@ -294,6 +294,7 @@ class ColegiadoController extends Controller {
         } else {
             $expediente = new Expediente();
             $expediente->setColegiado($colegiado);
+            $expediente->setMatricula($colegiado->getMatricula());
         }
 
         $ruta = $this->generateUrl('actualizar_expediente', array('colegiadoId' => $colegiadoId));
