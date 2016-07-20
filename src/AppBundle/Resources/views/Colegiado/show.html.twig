@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                                 <th>Fecha matricula </th>
-                                <td>{{ entity.fechaMatricula|date('d-m-Y') }}</td>
+                                <td>{{ entity.fechaMatricula is null ? "" :entity.fechaMatricula|date('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <th>Folio </th>
@@ -80,19 +80,19 @@
                             </tr>
                             <tr>
                                 <th>Sexo </th>
-                                <td>{{ entity.sexo.nombre }}</td>
+                                <td>{{ entity.sexo.nombre|default('') }}</td>
                             </tr>
                             <tr>
                                 <th>Tipo documento </th>
-                                <td>{{ entity.tipoDocumento }}</td>
+                                <td>{{ entity.tipoDocumento}}</td>
                             </tr>
                             <tr>
                                 <th>Numero documento </th>
-                                <td>{{ entity.numeroDocumento }}</td>
+                                <td>{{ entity.numeroDocumento |default('')}}</td>
                             </tr>
                             <tr>
                                 <th>Cuil Cuit </th>
-                                <td>{{ entity.cuilCuit }}</td>
+                                <td>{{ entity.cuilCuit |default('')}}</td>
                             </tr>
 
                         </tbody>
@@ -112,7 +112,7 @@
                         <tbody>
                             <tr>
                                 <th>Fecha nacimiento </th>
-                                <td>{{ entity.fechaNacimiento|date('d-m-Y') }}</td>
+                                <td>{{ entity.fechaNacimiento is null ? "" :entity.fechaNacimiento|date('d-m-Y')|default('') }}</td>
                             </tr>
                             <tr>
                                 <th>Localidad </th>
@@ -144,19 +144,19 @@
 
                             <tr>
                                 <th>Telefono1 </th>
-                                <td>{{ entity.telefono1 }}</td>
+                                <td>{{ entity.telefono1 |default('')}}</td>
                             </tr>
                             <tr>
                                 <th>Telefono2 </th>
-                                <td>{{ entity.telefono2 }}</td>
+                                <td>{{ entity.telefono2|default('') }}</td>
                             </tr>
                             <tr>
                                 <th>Telefono3 </th>
-                                <td>{{ entity.telefono3 }}</td>
+                                <td>{{ entity.telefono3|default('') }}</td>
                             </tr>
                             <tr>
                                 <th>Mail </th>
-                                <td>{{ entity.mail }}</td>
+                                <td>{{ entity.mail|default('') }}</td>
                             </tr>
 
                         </tbody>
@@ -207,7 +207,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Fecha </th>
-                                                <td>{{ domicilio.fecha |date('d-m-Y')}}</td>
+                                                <td>{{ domicilio.fecha is null ? "" :domicilio.fecha |date('d-m-Y')}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -229,19 +229,19 @@
                         <tbody>
                             <tr>
                                 <th>Matricula federal </th>
-                                <td>{{ entity.matriculaFederal }}</td>
+                                <td>{{ entity.matriculaFederal|default('') }}</td>
                             </tr>
                             <tr>
                                 <th>Fecha </th>
-                                <td>{{ entity.fechaFederal|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.fechaFederal is null ? "" :entity.fechaFederal|date('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <th>Libro </th>
-                                <td>{{ entity.libroFederal }}</td>
+                                <td>{{ entity.libroFederal |default('')}}</td>
                             </tr>
                             <tr>
                                 <th>Folio </th>
-                                <td>{{ entity.folioFederal }}</td>
+                                <td>{{ entity.folioFederal |default('')}}</td>
                             </tr>
 
 
@@ -260,7 +260,7 @@
                         <tbody>
                             <tr>
                                 <th>Fecha inactividad </th>
-                                <td>{{ entity.fechaInactividad|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.fechaInactividad is null ? "" :entity.fechaInactividad|date('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <th>Cargo </th>
@@ -268,23 +268,23 @@
                             </tr>
                             <tr>
                                 <th>Fecha cargo </th>
-                                <td>{{ entity.fechaCargo|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.fechaCargo is null ? "" :entity.fechaCargo|date('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <th>Fecha titulo </th>
-                                <td>{{ entity.fechaTitulo|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ entity.fechaTitulo is null ? "" :entity.fechaTitulo|date('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <th>Facultad </th>
-                                <td>{{ entity.facultad }}</td>
+                                <td>{{ entity.facultad |default('')}}</td>
                             </tr>
                             <tr>
                                 <th>Observacion </th>
-                                <td>{{ entity.observacion }}</td>
+                                <td>{{ entity.observacion |default('')}}</td>
                             </tr>
                             <tr>
                                 <th>Denuncias </th>
-                                <td>{{ entity.denuncias }}</td>
+                                <td>{{ entity.denuncias |default('')}}</td>
                             </tr>
 
 
@@ -311,7 +311,7 @@
                                             <tbody>
                                                 <tr>
                                                     <th>Fecha de ingreso </th>
-                                                    <td>{{ documento.fechaIngreso|date("d-m-Y") }}</td>
+                                                    <td>{{ entity.fechaIngreso is null ? "" :documento.fechaIngreso|date("d-m-Y") }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Descripcion </th>

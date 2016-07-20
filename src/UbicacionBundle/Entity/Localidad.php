@@ -25,21 +25,21 @@ class Localidad {
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255)
+     * @ORM\Column(name="descripcion", type="string", length=50)
      */
     private $descripcion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="codigo", type="string", length=10, nullable=true)
      */
     private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_postal", type="string", length=255)
+     * @ORM\Column(name="codigo_postal", type="string", length=10)
      */
     private $codigoPostal;
 

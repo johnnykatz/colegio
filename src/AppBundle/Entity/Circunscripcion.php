@@ -27,14 +27,14 @@ class Circunscripcion {
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=255)
+     * @ORM\Column(name="codigo", type="string", length=10)
      */
     private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descripcion", type="string", length=100, nullable=true)
      */
     private $descripcion;
 

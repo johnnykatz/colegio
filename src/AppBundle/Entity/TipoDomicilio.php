@@ -28,14 +28,14 @@ class TipoDomicilio
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="nombre", type="string", length=50)
      */
     private $nombre;
     
      /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     * @ORM\Column(name="slug", type="string", length=50, nullable=true)
      */
     private $slug;
     

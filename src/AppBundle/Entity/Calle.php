@@ -27,14 +27,14 @@ class Calle {
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=255)
+     * @ORM\Column(name="codigo", type="string", length=10)
      */
     private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="nombre", type="string", length=100)
      */
     private $nombre;
 

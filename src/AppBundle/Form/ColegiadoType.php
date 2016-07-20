@@ -36,6 +36,7 @@ class ColegiadoType extends AbstractType {
                 ->add('numeroDocumento')
                 ->add('cuilCuit')
                 ->add('fechaNacimiento', 'date', array(
+                    'required' => false,
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'attr' => array(
@@ -45,12 +46,12 @@ class ColegiadoType extends AbstractType {
                 ->add('localidad', 'jqueryautocomplete', array(
                     'class' => 'UbicacionBundle:Localidad',
                     'search_method' => 'getLocalidadByNombre',
-                    'required' => true,
                     'label' => 'Localidad de nacimiento',
                     'route_name' => 'get_localidad_by_nombre'
                 ))
                 ->add('matriculaFederal')
                 ->add('fechaFederal', 'date', array(
+                    'required' => false,
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'attr' => array(
@@ -60,6 +61,7 @@ class ColegiadoType extends AbstractType {
                 ->add('libroFederal')
                 ->add('folioFederal')
                 ->add('fechaInactividad', 'date', array(
+                    'required' => false,
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'attr' => array(
@@ -68,6 +70,7 @@ class ColegiadoType extends AbstractType {
                 ))
                 ->add('cargo')
                 ->add('fechaCargo', 'date', array(
+                    'required' => false,
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'attr' => array(
@@ -75,6 +78,7 @@ class ColegiadoType extends AbstractType {
                     ),
                 ))
                 ->add('fechaTitulo', 'date', array(
+                    'required' => false,
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'attr' => array(
@@ -92,12 +96,6 @@ class ColegiadoType extends AbstractType {
                 ->add('facultad')
                 ->add('circunscripcion')
                 ->add('situacion')
-//                ->add('domicilios', 'collection', array(
-//                    'type' => new DomicilioType(),
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
-//                    'prototype_name' => '__domicilio__'
-//                ))
                 ->add('domicilios', 'bootstrapcollection', array(
                     'type' => new DomicilioType(),
                     'allow_add' => true,

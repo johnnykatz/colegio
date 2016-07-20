@@ -25,9 +25,9 @@ class Expediente
     private $id;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="matricula", type="string", length=255)
+     * @ORM\Column(name="matricula", type="integer")
      */
     private $matricula;
 

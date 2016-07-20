@@ -33,21 +33,21 @@ class Colegiado {
     /**
      * @var string
      *
-     * @ORM\Column(name="apellido", type="string", length=255)
+     * @ORM\Column(name="apellido", type="string", length=100)
      */
     private $apellido;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="nombre", type="string", length=100)
      */
     private $nombre;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="matricula", type="string", length=255)
+     * @ORM\Column(name="matricula", type="integer")
      */
     private $matricula;
 
@@ -80,9 +80,9 @@ class Colegiado {
     private $legajo;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="numero_documento", type="string", length=255)
+     * @ORM\Column(name="numero_documento", type="integer", nullable=true)
      */
     private $numeroDocumento;
 
@@ -138,7 +138,7 @@ class Colegiado {
     /**
      * @var string
      *
-     * @ORM\Column(name="cargo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cargo", type="string", length=100, nullable=true)
      */
     private $cargo;
 
