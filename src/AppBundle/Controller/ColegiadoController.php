@@ -9,6 +9,7 @@ use AppBundle\Entity\Colegiado;
 use AppBundle\Entity\Expediente;
 use AppBundle\Form\ColegiadoType;
 use AppBundle\Form\ExpedienteType;
+use AppBundle\Form\Filter\ColegiadosFilterType;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 /**
  * Colegiado controller.
@@ -22,8 +23,18 @@ class ColegiadoController extends Controller implements TokenAuthenticatedContro
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AppBundle:Colegiado')->findAll();
+        
+        $form = $this->createForm(new ColegiadosFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('AppBundle:Colegiado')->getColegiadosFilter($data);
+            }
+        } else {
+            $entities = $em->getRepository('AppBundle:Colegiado')->getColegiadosFilter();
+        }
+        
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
@@ -32,6 +43,7 @@ class ColegiadoController extends Controller implements TokenAuthenticatedContro
 
         return $this->render('AppBundle:Colegiado:index.html.twig', array(
                     'entities' => $entities,
+                    'form'=>$form->createView(),
         ));
     }
 

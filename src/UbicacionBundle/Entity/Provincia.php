@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Provincia
  *
  * @ORM\Table(name="provincias")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UbicacionBundle\Entity\UbicacionRepository")
  */
 class Provincia {
 

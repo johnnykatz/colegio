@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 use UbicacionBundle\Entity\Pais;
 use UbicacionBundle\Form\PaisType;
+use UbicacionBundle\Form\Filter\UbicacionFilterType;
 
 /**
  * Pais controller.s
@@ -18,28 +19,35 @@ class PaisController extends Controller implements TokenAuthenticatedController 
      * Lists all Pais entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction(request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UbicacionBundle:Pais')->findAll();
+        $form = $this->createForm(new UbicacionFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('UbicacionBundle:Pais')->getPaisesFilter($data);
+            }
+        } else {
+            $entities = $em->getRepository('UbicacionBundle:Pais')->getPaisesFilter();
+        }
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
-                $entities, 
-                $this->get('request')->query->get('page', 1)/* page number */, 
-                10/* limit per page */
+                $entities, $this->get('request')->query->get('page', 1)/* page number */, 10/* limit per page */
         );
         return $this->render('UbicacionBundle:Pais:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
+                    'form' => $form->createView(),
         ));
     }
+
     /**
      * Creates a new Pais entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Pais();
         $form = $this->createForm(new PaisType(), $entity);
         $form->handleRequest($request);
@@ -51,13 +59,13 @@ class PaisController extends Controller implements TokenAuthenticatedController 
             $this->get('session')->getFlashBag()->add(
                     'success', 'Pais Creado correctamente.'
             );
-            
+
             return $this->redirect($this->generateUrl('pais_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('UbicacionBundle:Pais:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -68,8 +76,7 @@ class PaisController extends Controller implements TokenAuthenticatedController 
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Pais $entity)
-    {
+    private function createCreateForm(Pais $entity) {
         $form = $this->createForm(new PaisType(), $entity, array(
             'action' => $this->generateUrl('pais_create'),
             'method' => 'POST',
@@ -84,14 +91,13 @@ class PaisController extends Controller implements TokenAuthenticatedController 
      * Displays a form to create a new Pais entity.
      *
      */
-    public function newAction()
-    {
-        $entity = new Pais();        
-        $form   = $this->createForm(new PaisType(), $entity);
+    public function newAction() {
+        $entity = new Pais();
+        $form = $this->createForm(new PaisType(), $entity);
 
         return $this->render('UbicacionBundle:Pais:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -99,8 +105,7 @@ class PaisController extends Controller implements TokenAuthenticatedController 
      * Finds and displays a Pais entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Pais')->find($id);
@@ -112,8 +117,8 @@ class PaisController extends Controller implements TokenAuthenticatedController 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('UbicacionBundle:Pais:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -121,8 +126,7 @@ class PaisController extends Controller implements TokenAuthenticatedController 
      * Displays a form to edit an existing Pais entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Pais')->find($id);
@@ -130,26 +134,24 @@ class PaisController extends Controller implements TokenAuthenticatedController 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Pais entity.');
         }
-        
+
         $editForm = $this->createForm(new PaisType(), $entity);
-        
+
 
         return $this->render('UbicacionBundle:Pais:edit.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-            
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Pais entity.
-    *
-    * @param Pais $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Pais $entity)
-    {
+     * Creates a form to edit a Pais entity.
+     *
+     * @param Pais $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Pais $entity) {
         $form = $this->createForm(new PaisType(), $entity, array(
             'action' => $this->generateUrl('pais_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -159,12 +161,12 @@ class PaisController extends Controller implements TokenAuthenticatedController 
 
         return $form;
     }
+
     /**
      * Edits an existing Pais entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Pais')->find($id);
@@ -173,8 +175,8 @@ class PaisController extends Controller implements TokenAuthenticatedController 
             throw $this->createNotFoundException('Unable to find Pais entity.');
         }
 
-        
-        $editForm =  $this->createForm(new PaisType(), $entity);
+
+        $editForm = $this->createForm(new PaisType(), $entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -187,17 +189,16 @@ class PaisController extends Controller implements TokenAuthenticatedController 
         }
 
         return $this->render('UbicacionBundle:Pais:edit.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-            
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Pais entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -223,13 +224,13 @@ class PaisController extends Controller implements TokenAuthenticatedController 
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('pais_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('pais_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Facultad
  *
  * @ORM\Table(name="facultades")
- * @ORM\Entity
+  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\FacultadRepository")
  * @UniqueEntity("codigo")
  */
 class Facultad {

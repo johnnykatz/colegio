@@ -3,43 +3,50 @@
 {% block title %}
     {{ title }}
 {% endblock %}
+{% block content_title %}
+    Formulario de Edición
+{% endblock %}
+{% block content -%}
 
-    {% block content -%}
+    {#        <h4 class="page-header">Departamento</h4>#}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            {#<div class="box-header">
+                <div class="box-name ui-draggable-handle">
+                    <i class="fa fa-search"></i>
+                    <span>Alta de Departamento</span>
+                </div>
+            </div>#}
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Departamento</h3>
+                </div>
 
-        <h4 class="page-header">Departamento</h4>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12">
-                <div class="box-header">
-                    <div class="box-name ui-draggable-handle">
-                        <i class="fa fa-search"></i>
-                        <span>Alta de Departamento</span>
+                <form action="{{ path('departamento_update', { 'id': entity.id }) }}" role="form" method="post">
+                    <div class="box-body">    
+                        {{ form_widget(form) }}
+
+
                     </div>
-                </div>
-                <div class="box-content">
-                    <h4 class="page-header">{{ title }}</h4>
-                    <form action="{{ path('departamento_update', { 'id': entity.id }) }}" role="form" method="post">
-                        <div class="box-body">
-                            {{ form_widget(form) }}
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Actualizar
+                            </button>
+
+                            <a class="btn btn-default" href="{{ path('departamento') }}">
+                                Volver
+                            </a>
+
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar
-                                </button>
-
-                                <a class="btn btn-success" href="{{ path('departamento') }}">
-                                    Volver
-                                </a>
-
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </form>
 
 
-                </div>
             </div>
         </div>
+    </div>
 
 
-    {% endblock %}
+{% endblock %}
 
 

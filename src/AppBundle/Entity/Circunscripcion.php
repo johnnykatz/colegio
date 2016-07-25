@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Circunscripcion
  *
  * @ORM\Table(name="circunscripciones")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CircunscripcionRepository")
  * @UniqueEntity("codigo")
  */
 class Circunscripcion {

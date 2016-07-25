@@ -7,38 +7,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 use UbicacionBundle\Entity\Provincia;
 use UbicacionBundle\Form\ProvinciaType;
+use UbicacionBundle\Form\Filter\UbicacionFilterType;
 
 /**
  * Provincia controller.
  *
  */
 class ProvinciaController extends Controller implements TokenAuthenticatedController {
+
     /**
      * Lists all Provincia entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction(request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UbicacionBundle:Provincia')->findAll();
+        $form = $this->createForm(new UbicacionFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('UbicacionBundle:Provincia')->getProvinciasFilter($data);
+            }
+        } else {
+            $entities = $em->getRepository('UbicacionBundle:Provincia')->getProvinciasFilter();
+        }
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
-                $entities, 
-                $this->get('request')->query->get('page', 1)/* page number */, 
-                10/* limit per page */
+                $entities, $this->get('request')->query->get('page', 1)/* page number */, 10/* limit per page */
         );
         return $this->render('UbicacionBundle:Provincia:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
+                    'form' => $form->createView(),
         ));
     }
+
     /**
      * Creates a new Provincia entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Provincia();
         $form = $this->createForm(new ProvinciaType(), $entity);
         $form->handleRequest($request);
@@ -50,13 +59,13 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
             $this->get('session')->getFlashBag()->add(
                     'success', 'Provincia Creado correctamente.'
             );
-            
+
             return $this->redirect($this->generateUrl('provincia_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('UbicacionBundle:Provincia:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -67,8 +76,7 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Provincia $entity)
-    {
+    private function createCreateForm(Provincia $entity) {
         $form = $this->createForm(new ProvinciaType(), $entity, array(
             'action' => $this->generateUrl('provincia_create'),
             'method' => 'POST',
@@ -83,14 +91,13 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
      * Displays a form to create a new Provincia entity.
      *
      */
-    public function newAction()
-    {
-        $entity = new Provincia();        
-        $form   = $this->createForm(new ProvinciaType(), $entity);
+    public function newAction() {
+        $entity = new Provincia();
+        $form = $this->createForm(new ProvinciaType(), $entity);
 
         return $this->render('UbicacionBundle:Provincia:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -98,8 +105,7 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
      * Finds and displays a Provincia entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Provincia')->find($id);
@@ -111,8 +117,8 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('UbicacionBundle:Provincia:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -120,8 +126,7 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
      * Displays a form to edit an existing Provincia entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Provincia')->find($id);
@@ -129,26 +134,24 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Provincia entity.');
         }
-        
+
         $editForm = $this->createForm(new ProvinciaType(), $entity);
-        
+
 
         return $this->render('UbicacionBundle:Provincia:edit.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-            
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Provincia entity.
-    *
-    * @param Provincia $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Provincia $entity)
-    {
+     * Creates a form to edit a Provincia entity.
+     *
+     * @param Provincia $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Provincia $entity) {
         $form = $this->createForm(new ProvinciaType(), $entity, array(
             'action' => $this->generateUrl('provincia_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -158,12 +161,12 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
 
         return $form;
     }
+
     /**
      * Edits an existing Provincia entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Provincia')->find($id);
@@ -172,8 +175,8 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
             throw $this->createNotFoundException('Unable to find Provincia entity.');
         }
 
-        
-        $editForm =  $this->createForm(new ProvinciaType(), $entity);
+
+        $editForm = $this->createForm(new ProvinciaType(), $entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -186,17 +189,16 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
         }
 
         return $this->render('UbicacionBundle:Provincia:edit.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-            
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Provincia entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -222,13 +224,13 @@ class ProvinciaController extends Controller implements TokenAuthenticatedContro
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('provincia_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('provincia_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

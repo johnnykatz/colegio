@@ -39,4 +39,19 @@ class LocalidadRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+    
+     public function getLocalidadesFilter($parametros = null) {
+        $qb = $this->createQueryBuilder('e');
+
+        if (isset($parametros['descripcion'])) {
+            $qb->andWhere('e.descripcion like :descripcion')
+                    ->setParameter('descripcion', "%" . $parametros['descripcion'] . "%");
+        }
+        if (isset($parametros['codigo'])) {
+            $qb->andWhere('e.codigo = :codigo')
+                    ->setParameter('codigo', $parametros['codigo']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

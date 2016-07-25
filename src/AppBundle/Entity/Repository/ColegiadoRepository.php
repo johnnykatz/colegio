@@ -12,6 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class ColegiadoRepository extends EntityRepository {
 
-   
+    public function getColegiadosFilter($parametros = null) {
+        $qb = $this->createQueryBuilder('c');
+        if (isset($parametros['apellido'])) {
+            $qb->andWhere('c.apellido like :apellido')
+                    ->setParameter('apellido', "%" . $parametros['apellido'] . "%");
+        }
+        if (isset($parametros['numeroDocumento'])) {
+            $qb->andWhere('c.numeroDocumento = :numeroDocumento')
+                    ->setParameter('numeroDocumento', $parametros['numeroDocumento']);
+        }
+
+        if (isset($parametros['matricula'])) {
+            $qb->andWhere('c.matricula = :matricula')
+                    ->setParameter('matricula', $parametros['matricula']);
+        }
+        if (isset($parametros['situacion'])) {
+            $qb->andWhere('c.situacion = :situacion')
+                    ->setParameter('situacion', $parametros['situacion']);
+        }
+        return $qb->getQuery()->getResult();
+    }
 
 }

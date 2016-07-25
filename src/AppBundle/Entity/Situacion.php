@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="situaciones")
  * @UniqueEntity("codigo")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SituacionRepository")
  */
 class Situacion {
 

@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Calle;
 use AppBundle\Form\CalleType;
+use AppBundle\Form\Filter\CallesFilterType;
 
 /**
  * Calle controller.
@@ -23,7 +24,17 @@ class CalleController extends Controller implements TokenAuthenticatedController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Calle')->findAll();
+        $form = $this->createForm(new CallesFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('AppBundle:Calle')->getCallesFilter($data);
+            }
+        } else {
+            $entities = $em->getRepository('AppBundle:Calle')->getCallesFilter();
+        }
+        
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
@@ -32,6 +43,7 @@ class CalleController extends Controller implements TokenAuthenticatedController
 
         return $this->render('AppBundle:Calle:index.html.twig', array(
             'entities' => $entities,
+            'form'=>$form->createView(),
         ));
     }
     /**

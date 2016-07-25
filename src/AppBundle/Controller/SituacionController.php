@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\Situacion;
 use AppBundle\Form\SituacionType;
-
+use AppBundle\Form\Filter\SituacionesFilterType;
 /**
  * Situacion controller.
  *
@@ -23,7 +23,16 @@ class SituacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Situacion')->findAll();
+         $form = $this->createForm(new SituacionesFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('AppBundle:Situacion')->getSituacionesFilter($data);
+            }
+        } else {
+             $entities = $em->getRepository('AppBundle:Situacion')->getSituacionesFilter();
+        }
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
@@ -32,6 +41,7 @@ class SituacionController extends Controller
 
         return $this->render('AppBundle:Situacion:index.html.twig', array(
             'entities' => $entities,
+            'form' => $form->createView(),
         ));
     }
     /**

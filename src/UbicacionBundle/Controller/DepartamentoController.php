@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 use UbicacionBundle\Entity\Departamento;
 use UbicacionBundle\Form\DepartamentoType;
+use UbicacionBundle\Form\Filter\UbicacionFilterType;
 
 /**
  * Departamento controller.
@@ -14,33 +15,38 @@ use UbicacionBundle\Form\DepartamentoType;
  */
 class DepartamentoController extends Controller implements TokenAuthenticatedController {
 
-
     /**
      * Lists all Departamento entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('UbicacionBundle:Departamento')->findAll();
+        $form = $this->createForm(new UbicacionFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('UbicacionBundle:Departamento')->getDepartamentosFilter($data);
+            }
+        } else {
+            $entities = $em->getRepository('UbicacionBundle:Departamento')->getDepartamentosFilter();
+        }
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
-                $entities, 
-                $this->get('request')->query->get('page', 1)/* page number */, 
-                10/* limit per page */
+                $entities, $this->get('request')->query->get('page', 1)/* page number */, 10/* limit per page */
         );
         return $this->render('UbicacionBundle:Departamento:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
+            'form'=>$form->createView(),
         ));
     }
+
     /**
      * Creates a new Departamento entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Departamento();
         $form = $this->createForm(new DepartamentoType(), $entity);
         $form->handleRequest($request);
@@ -52,13 +58,13 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
             $this->get('session')->getFlashBag()->add(
                     'success', 'Departamento Creado correctamente.'
             );
-            
+
             return $this->redirect($this->generateUrl('departamento_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('UbicacionBundle:Departamento:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -69,8 +75,7 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Departamento $entity)
-    {
+    private function createCreateForm(Departamento $entity) {
         $form = $this->createForm(new DepartamentoType(), $entity, array(
             'action' => $this->generateUrl('departamento_create'),
             'method' => 'POST',
@@ -85,14 +90,13 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
      * Displays a form to create a new Departamento entity.
      *
      */
-    public function newAction()
-    {
-        $entity = new Departamento();        
-        $form   = $this->createForm(new DepartamentoType(), $entity);
+    public function newAction() {
+        $entity = new Departamento();
+        $form = $this->createForm(new DepartamentoType(), $entity);
 
         return $this->render('UbicacionBundle:Departamento:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -100,8 +104,7 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
      * Finds and displays a Departamento entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Departamento')->find($id);
@@ -113,8 +116,8 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('UbicacionBundle:Departamento:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -122,8 +125,7 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
      * Displays a form to edit an existing Departamento entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Departamento')->find($id);
@@ -131,26 +133,24 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Departamento entity.');
         }
-        
+
         $editForm = $this->createForm(new DepartamentoType(), $entity);
-        
+
 
         return $this->render('UbicacionBundle:Departamento:edit.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-            
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Departamento entity.
-    *
-    * @param Departamento $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Departamento $entity)
-    {
+     * Creates a form to edit a Departamento entity.
+     *
+     * @param Departamento $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Departamento $entity) {
         $form = $this->createForm(new DepartamentoType(), $entity, array(
             'action' => $this->generateUrl('departamento_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -160,12 +160,12 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
 
         return $form;
     }
+
     /**
      * Edits an existing Departamento entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('UbicacionBundle:Departamento')->find($id);
@@ -174,8 +174,8 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
             throw $this->createNotFoundException('Unable to find Departamento entity.');
         }
 
-        
-        $editForm =  $this->createForm(new DepartamentoType(), $entity);
+
+        $editForm = $this->createForm(new DepartamentoType(), $entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -188,17 +188,16 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
         }
 
         return $this->render('UbicacionBundle:Departamento:edit.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-            
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Departamento entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -224,13 +223,13 @@ class DepartamentoController extends Controller implements TokenAuthenticatedCon
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('departamento_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('departamento_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 use UbicacionBundle\Entity\Localidad;
 use UbicacionBundle\Form\LocalidadType;
+use UbicacionBundle\Form\Filter\UbicacionFilterType;
 
 /**
  * Localidad controller.
@@ -19,12 +20,20 @@ class LocalidadController extends Controller implements TokenAuthenticatedContro
      * Lists all Localidad entities.
      *
      */
-    public function indexAction()
+    public function indexAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UbicacionBundle:Localidad')->findAll();
-
+         $form = $this->createForm(new UbicacionFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('UbicacionBundle:Localidad')->getLocalidadesFilter($data);
+            }
+        } else {
+            $entities = $em->getRepository('UbicacionBundle:Localidad')->getLocalidadesFilter();
+        }
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
                 $entities, 
@@ -33,6 +42,7 @@ class LocalidadController extends Controller implements TokenAuthenticatedContro
         );
         return $this->render('UbicacionBundle:Localidad:index.html.twig', array(
             'entities' => $entities,
+            'form'=>$form->createView(),
         ));
     }
     /**

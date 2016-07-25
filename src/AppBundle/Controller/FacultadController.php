@@ -7,39 +7,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Facultad;
 use AppBundle\Form\FacultadType;
-
+use AppBundle\Form\Filter\FacultadesFilterType;
 /**
  * Facultad controller.
  *
  */
-class FacultadController extends Controller implements TokenAuthenticatedController
-{
+class FacultadController extends Controller implements TokenAuthenticatedController {
 
     /**
      * Lists all Facultad entities.
      *
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Facultad')->findAll();
+        $form = $this->createForm(new FacultadesFilterType());
+        if ($request->isMethod("post")) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $entities = $em->getRepository('AppBundle:Facultad')->getFacultadesFilter($data);
+            }
+        } else {
+           $entities = $em->getRepository('AppBundle:Facultad')->getFacultadesFilter();
+        }
 
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate(
-        $entities, $request->query->get('page', 1)/* page number */, 10/* limit per page */
+                $entities, $request->query->get('page', 1)/* page number */, 10/* limit per page */
         );
 
         return $this->render('AppBundle:Facultad:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
+                    'form' => $form->createView(),
         ));
     }
+
     /**
      * Creates a new Facultad entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Facultad();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -50,15 +58,15 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
             $em->flush();
 
             $this->get('session')->getFlashBag()->add(
-                'success', 'Facultad creado correctamente.'
+                    'success', 'Facultad creado correctamente.'
             );
 
             return $this->redirect($this->generateUrl('facultad_show', array('id' => $entity->getId())));
         }
 
         return $this->render('AppBundle:Facultad:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -69,8 +77,7 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Facultad $entity)
-    {
+    private function createCreateForm(Facultad $entity) {
         $form = $this->createForm(new FacultadType(), $entity, array(
             'action' => $this->generateUrl('facultad_create'),
             'method' => 'POST',
@@ -89,14 +96,13 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
      * Displays a form to create a new Facultad entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Facultad();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('AppBundle:Facultad:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -104,8 +110,7 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
      * Finds and displays a Facultad entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Facultad')->find($id);
@@ -117,8 +122,8 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Facultad:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -126,8 +131,7 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
      * Displays a form to edit an existing Facultad entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Facultad')->find($id);
@@ -140,21 +144,20 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:Facultad:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Facultad entity.
-    *
-    * @param Facultad $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Facultad $entity)
-    {
+     * Creates a form to edit a Facultad entity.
+     *
+     * @param Facultad $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Facultad $entity) {
         $form = $this->createForm(new FacultadType(), $entity, array(
             'action' => $this->generateUrl('facultad_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -162,22 +165,20 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
         ));
 
         $form->add(
-            'submit',
-            'submit',
-            array(
-                'label' => 'Actualizar',
-                'attr' => array('class' => 'btn btn-primary pull-right'),
-            )
+                'submit', 'submit', array(
+            'label' => 'Actualizar',
+            'attr' => array('class' => 'btn btn-primary pull-right'),
+                )
         );
 
         return $form;
     }
+
     /**
      * Edits an existing Facultad entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Facultad')->find($id);
@@ -194,24 +195,24 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
             $em->flush();
 
             $this->get('session')->getFlashBag()->add(
-                'success', 'Facultad actualizado correctamente.'
+                    'success', 'Facultad actualizado correctamente.'
             );
 
             return $this->redirect($this->generateUrl('facultad_edit', array('id' => $id)));
         }
 
         return $this->render('AppBundle:Facultad:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Facultad entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -237,13 +238,13 @@ class FacultadController extends Controller implements TokenAuthenticatedControl
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('facultad_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('facultad_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

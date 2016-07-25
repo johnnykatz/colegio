@@ -23,4 +23,19 @@ class CalleRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
+    public function getCallesFilter($parametros = null) {
+        $qb = $this->createQueryBuilder('e');
+
+        if (isset($parametros['nombre'])) {
+            $qb->andWhere('e.nombre like :nombre')
+                    ->setParameter('nombre', "%" . $parametros['nombre'] . "%");
+        }
+        if (isset($parametros['codigo'])) {
+            $qb->andWhere('e.codigo = :codigo')
+                    ->setParameter('codigo', $parametros['codigo']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 }
