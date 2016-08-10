@@ -82,16 +82,17 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>Matricula</th>
                                 <th>Apellido</th>
                                 <th>Nombre</th>
-                                <th>Matricula</th>
+{#                                <th>Matricula</th>#}
                                     {#<th>Fechamatricula</th>
                                     <th>Folio</th>
                                     <th>Libro</th>#}
-                                <th>Legajo</th>
+{#                                <th>Legajo</th>#}
                                 <th>Numero documento</th>
-                                <th>Cuilcuit</th>
-                                <th>Fecha nacimiento</th>
+{#                                <th>Cuilcuit</th>#}
+{#                                <th>Fecha nacimiento</th>#}
                                     {# <th>Matriculafederal</th>
                                      <th>Fechafederal</th>
                                      <th>Librofederal</th>
@@ -105,7 +106,7 @@
                                 <th>Telefono 1</th>
                                     {# <th>Telefono2</th>
                                      <th>Telefono3</th>#}
-                                <th>Mail</th>
+{#                                <th>Mail</th>#}
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -115,16 +116,17 @@
                                     <td>
                                         <a href="{{ path('colegiado_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                                     </td>
+                                    <td>{{ entity.matricula }}</td>
                                     <td>{{ entity.apellido }}</td>
                                     <td>{{ entity.nombre }}</td>
-                                    <td>{{ entity.matricula }}</td>
+{#                                    <td>{{ entity.matricula }}</td>#}
                                     {# <td>{% if entity.fechaMatricula %}{{ entity.fechaMatricula|date('Y-m-d H:i:s') }}{% endif %}</td>
                                      <td>{{ entity.folio }}</td>
                                      <td>{{ entity.libro }}</td>#}
-                                    <td>{{ entity.legajo }}</td>
+{#                                    <td>{{ entity.legajo }}</td>#}
                                     <td>{{ entity.numeroDocumento }}</td>
-                                    <td>{{ entity.cuilCuit }}</td>
-                                    <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d-m-Y') }}{% endif %}</td>
+{#                                    <td>{{ entity.cuilCuit }}</td>#}
+{#                                    <td>{% if entity.fechaNacimiento %}{{ entity.fechaNacimiento|date('d-m-Y') }}{% endif %}</td>#}
                                     {# <td>{{ entity.matriculaFederal }}</td>
                                      <td>{% if entity.fechaFederal %}{{ entity.fechaFederal|date('Y-m-d H:i:s') }}{% endif %}</td>
                                      <td>{{ entity.libroFederal }}</td>
@@ -138,7 +140,7 @@
                                     <td>{{ entity.telefono1 }}</td>
                                     {# <td>{{ entity.telefono2 }}</td>
                                      <td>{{ entity.telefono3 }}</td>#}
-                                    <td>{{ entity.mail }}</td>
+{#                                    <td>{{ entity.mail }}</td>#}
                                     <td>
 
                                         <a class="btn btn-default" href="{{ path('colegiado_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i></a>
