@@ -7,10 +7,15 @@
     {{ parent() }}
     <script type="text/javascript">
         window.onload = function () {
-           $("#appbundle_colegiado_localidad").removeAttr("required");
+            $("#appbundle_colegiado_localidad").removeAttr("required");
 
         };
         $(document).ready(function () {
+
+            $('.bootstrapcollection-agregar-otro-item').click(function () {
+                
+                inicializarFecha();
+            });
         {#$('#appbundle_colegiado_submit').click(function () {
             var frm = document.getElementsByClassName("tipoDomicilio");
             for (i = 0; i < frm.elements.length; i++)

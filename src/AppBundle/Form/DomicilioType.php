@@ -19,7 +19,7 @@ class DomicilioType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $factory = $builder->getFormFactory();
         $builder
-                ->add('tipoDomicilio','entity',array(
+                ->add('tipoDomicilio', 'entity', array(
                     'class' => 'AppBundle:TipoDomicilio',
                     'attr' => array(
                         'class' => 'tipoDomicilio',
@@ -36,11 +36,13 @@ class DomicilioType extends AbstractType {
                 ))
                 ->add('piso')
                 ->add('departamentoC', 'text', array(
-                    'label' => 'Dpto'
+                    'label' => 'Dpto',
+                    'required' => false,
                 ))
                 ->add('fecha', 'date', array(
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
+                    'required' => false,
                     'attr' => array(
                         'class' => 'datepicker',
                     ),
