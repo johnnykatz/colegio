@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\Situacion;
 use AppBundle\Form\SituacionType;
 use AppBundle\Form\Filter\SituacionesFilterType;
@@ -12,7 +12,7 @@ use AppBundle\Form\Filter\SituacionesFilterType;
  * Situacion controller.
  *
  */
-class SituacionController extends Controller
+class SituacionController extends Controller implements TokenAuthenticatedController 
 {
 
     /**

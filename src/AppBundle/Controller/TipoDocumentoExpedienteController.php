@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use UsuariosBundle\Controller\TokenAuthenticatedController;
 use AppBundle\Entity\TipoDocumentoExpediente;
 use AppBundle\Form\TipoDocumentoExpedienteType;
 
@@ -12,7 +12,7 @@ use AppBundle\Form\TipoDocumentoExpedienteType;
  * TipoDocumentoExpediente controller.
  *
  */
-class TipoDocumentoExpedienteController extends Controller
+class TipoDocumentoExpedienteController extends Controller implements TokenAuthenticatedController 
 {
 
     /**
